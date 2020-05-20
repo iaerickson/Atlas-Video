@@ -1,9 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
-import Detail from "./pages/Detail";
+import Video from "./pages/Video";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import AgoraRTC from 'agora-rtc-sdk'
+
+
+
 
 function App() {
   return (
@@ -12,8 +16,8 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/books" component={Login} />
-          <Route exact path="/books/:id" component={Detail} />
+          <Route exact path="/Login" component={Login} />
+          <Route exact path="/video" component={Video} />
           <Route component={NoMatch} />
         </Switch>
       </div>

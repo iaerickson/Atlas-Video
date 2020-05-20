@@ -9,7 +9,7 @@ import AgoraRTC from 'agora-rtc-sdk'
 function Video(props) {
   
   // app / channel settings
-var agoraAppId = ""; // Set your Agora App ID @ Leighton, do you want to plug yours in here or should I use mine?
+var agoraAppId = "13b2f58e1c114e8c9e6d34356d0aafaa"; // Set your Agora App ID @ Leighton, do you want to plug yours in here or should I use mine?
 var channelName = 'AtlasDemo';
 
 // video profile settings
@@ -17,11 +17,11 @@ var cameraVideoProfile = '480_4'; // 640 × 480 @ 30fps  & 750kbs
 var screenVideoProfile = '480_2'; // 640 × 480 @ 30fps
 
 // create client instances for camera (client) and screen share (screenClient)
-var client = AgoraRTC.createClient({mode: 'rtc', codec: "h264"}); // h264 better detail at a higher motion
-var screenClient = AgoraRTC.createClient({mode: 'rtc', codec: 'vp8'}); // use the vp8 for better detail in low motion
+var client = AgoraRTC.createClient({mode: 'live', codec: "h264"}); // h264 better detail at a higher motion
+// var screenClient = AgoraRTC.createClient({mode: 'rtc', codec: 'vp8'}); // use the vp8 for better detail in low motion
 
 // stream references (keep track of active streams) 
-var remoteStreams = {}; // remote streams obj struct [id : stream] 
+// var remoteStreams = {}; // remote streams obj struct [id : stream] 
 
 var localStreams = {
   camera: {
@@ -34,8 +34,79 @@ var localStreams = {
   }
 };
 
-var mainStreamId; // reference to main stream
-var screenShareActive = false; // flag for screen share 
+// var mainStreamId; // reference to main stream
+// var screenShareActive = false; // flag for screen share 
+
+
+// join a channel
+function joinChannel() {
+  var token = generateToken();
+  var userID = null; // set to null to auto generate uid on successfull connection
+  client.join(token, channelName, userID, function(uid) {
+      console.log("User " + uid + " join channel successfully");
+      createCameraStream(uid);
+      localStreams.camera.id = uid; // keep track of the stream uid 
+  }, function(err) {
+      console.log("[ERROR] : join channel failed", err);
+  });
+}
+
+// video streams for channel
+function createCameraStream(uid) {
+  var localStream = AgoraRTC.createStream({
+    streamID: uid,
+    audio: true,
+    video: true,
+    screen: false
+  });
+  localStream.setVideoProfile(cameraVideoProfile);
+  localStream.init(function() {
+    console.log("getUserMedia successfully");
+    // TODO: add check for other streams. play local stream full size if alone in channel
+    localStream.play('local-video'); // play the given stream within the local-video div
+    // publish local stream
+    client.publish(localStream, function (err) {
+      console.log("[ERROR] : publish local stream error: " + err);
+    });
+  
+    enableUiControls(localStream); // move after testing
+    localStreams.camera.stream = localStream; // keep track of the camera stream for later
+  }, function (err) {
+    console.log("[ERROR] : getUserMedia failed", err);
+  });
+}
+
+// function leaveChannel() {
+//   client.leave(function() {
+//     console.log("client leaves channel");
+//   }, function(err) {
+//     console.log("client leave failed ", err); //error handling
+//   });
+// }
+
+// use tokens for added security
+function generateToken() {
+  const {RtcTokenBuilder, RtcRole} = require('agora-access-token')
+
+  const appID = '13b2f58e1c114e8c9e6d34356d0aafaa';
+  const appCertificate = 'ba86f4e2ad2c449ea5cade3a35063a4e';
+  const channelName = 'testing';
+  const uid = 2882341273;
+  const role = RtcRole.PUBLISHER;
+
+  const expirationTimeInSeconds = 3600
+
+  const currentTimestamp = Math.floor(Date.now() / 1000)
+
+  const privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds
+
+  // IMPORTANT! Build token with either the uid or with the user account. Comment out the option you do not want to use below.
+
+  // Build token with uid
+  const tokenA = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs);
+
+  return tokenA; // We will need to add a token generator server here, Leighton. Check out these docs https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey/nodejs/src
+}
 
 // init Agora SDK
 client.init(agoraAppId, function () {
@@ -88,57 +159,6 @@ client.on("mute-video", function (evt) {
 client.on("unmute-video", function (evt) {
   console.log("Remote stream: " +  evt.uid + "has un-muted video");
 });
-
-// join a channel
-function joinChannel() {
-  var token = generateToken();
-  var userID = null; // set to null to auto generate uid on successfull connection
-  client.join(token, channelName, userID, function(uid) {
-      console.log("User " + uid + " join channel successfully");
-      createCameraStream(uid);
-      localStreams.camera.id = uid; // keep track of the stream uid 
-  }, function(err) {
-      console.log("[ERROR] : join channel failed", err);
-  });
-}
-
-// video streams for channel
-function createCameraStream(uid) {
-  var localStream = AgoraRTC.createStream({
-    streamID: uid,
-    audio: true,
-    video: true,
-    screen: false
-  });
-  localStream.setVideoProfile(cameraVideoProfile);
-  localStream.init(function() {
-    console.log("getUserMedia successfully");
-    // TODO: add check for other streams. play local stream full size if alone in channel
-    localStream.play('local-video'); // play the given stream within the local-video div
-    // publish local stream
-    client.publish(localStream, function (err) {
-      console.log("[ERROR] : publish local stream error: " + err);
-    });
-  
-    enableUiControls(localStream); // move after testing
-    localStreams.camera.stream = localStream; // keep track of the camera stream for later
-  }, function (err) {
-    console.log("[ERROR] : getUserMedia failed", err);
-  });
-}
-
-function leaveChannel() {
-  client.leave(function() {
-    console.log("client leaves channel");
-  }, function(err) {
-    console.log("client leave failed ", err); //error handling
-  });
-}
-
-// use tokens for added security
-function generateToken() {
-  return null; // We will need to add a token generator server here, Leighton. Check out these docs https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey/nodejs/src
-}
 
   return (
       <Videocontainer></Videocontainer>

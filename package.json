@@ -20,10 +20,17 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "access": "^1.0.2",
+    "agora": "0.0.2",
+    "agora-access-token": "^2.0.4",
     "agora-rtc-sdk": "^3.1.0",
     "axios": "^0.18.0",
+    "crc-32": "^1.2.0",
+    "crypto": "^1.0.1",
+    "cuint": "^0.2.2",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
-    "mongoose": "^5.3.16"
+    "mongoose": "^5.3.16",
+    "token": "^0.1.0"
   }
 }

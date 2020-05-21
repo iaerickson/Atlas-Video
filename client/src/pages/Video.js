@@ -13,7 +13,7 @@ var agoraAppId = "13b2f58e1c114e8c9e6d34356d0aafaa"; // Set your Agora App ID @ 
 var channelName = 'AtlasDemo';
 
 // video profile settings
-var cameraVideoProfile = '480_4'; // 640 × 480 @ 30fps  & 750kbs
+var cameraVideoProfile = '480p_4'; // 640 × 480 @ 30fps  & 750kbs
 var screenVideoProfile = '480_2'; // 640 × 480 @ 30fps
 
 // create client instances for camera (client) and screen share (screenClient)
@@ -36,13 +36,17 @@ var localStreams = {
 
 // var mainStreamId; // reference to main stream
 // var screenShareActive = false; // flag for screen share 
-
+var enableUiControls;
+var streamId;
+var stream;
 
 // join a channel
 function joinChannel() {
   var token = generateToken();
   var userID = null; // set to null to auto generate uid on successfull connection
-  client.join(token, channelName, userID, function(uid) {
+
+  client.join('00613b2f58e1c114e8c9e6d34356d0aafaaIABr547+2l9nolzJJmLh7Z7+wHCew+Haj5X/CAAnNeSXoc9niwMAAAAAEAB93H0FhSbHXgEAAQCFJsde', 'banana', userID, function(uid) {
+      console.log(uid);
       console.log("User " + uid + " join channel successfully");
       createCameraStream(uid);
       localStreams.camera.id = uid; // keep track of the stream uid 
@@ -53,6 +57,7 @@ function joinChannel() {
 
 // video streams for channel
 function createCameraStream(uid) {
+
   var localStream = AgoraRTC.createStream({
     streamID: uid,
     audio: true,
@@ -60,6 +65,7 @@ function createCameraStream(uid) {
     screen: false
   });
   localStream.setVideoProfile(cameraVideoProfile);
+
   localStream.init(function() {
     console.log("getUserMedia successfully");
     // TODO: add check for other streams. play local stream full size if alone in channel
@@ -69,7 +75,7 @@ function createCameraStream(uid) {
       console.log("[ERROR] : publish local stream error: " + err);
     });
   
-    enableUiControls(localStream); // move after testing
+    // enableUiControls(localStream); // move after testing
     localStreams.camera.stream = localStream; // keep track of the camera stream for later
   }, function (err) {
     console.log("[ERROR] : getUserMedia failed", err);
@@ -90,7 +96,7 @@ function generateToken() {
 
   const appID = '13b2f58e1c114e8c9e6d34356d0aafaa';
   const appCertificate = 'ba86f4e2ad2c449ea5cade3a35063a4e';
-  const channelName = 'testing';
+  const channelName = 'AtlasDemo';
   const uid = 2882341273;
   const role = RtcRole.PUBLISHER;
 
@@ -118,6 +124,7 @@ client.init(agoraAppId, function () {
 
 client.on('stream-published', function (evt) {
   console.log("Publish local stream successfully");
+  
 });
 
 // connect remote streams
@@ -161,7 +168,9 @@ client.on("unmute-video", function (evt) {
 });
 
   return (
-      <Videocontainer></Videocontainer>
+      <Videocontainer>
+
+      </Videocontainer>
     );
   }
 

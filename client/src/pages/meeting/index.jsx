@@ -25,12 +25,12 @@ class Meeting extends React.Component {
       <div className="wrapper meeting">
         <div className="ag-header">
           <div className="ag-header-lead">
-            <img
+            {/* <img
               className="header-logo"
               src={require("../../assets/images/ag-logo.png")}
               alt=""
-            />
-            <span>AgoraWeb v2.1</span>
+            /> */}
+            {/* <span>AgoraWeb v2.1</span> */}
           </div>
           <div className="ag-header-msg">
             Room:&nbsp;<span id="room-name">{this.channel}</span>
@@ -50,10 +50,10 @@ class Meeting extends React.Component {
           </div>
         </div>
         <div className="ag-footer">
-          <a className="ag-href" href="https://www.agora.io">
-            <span>Powered By Agora</span>
-          </a>
-          <span>Talk to Support: 400 632 6626</span>
+          {/* <a className="ag-href" href="https://www.agora.io">
+            {/* <span>Powered By Agora</span> */}
+          {/* </a> */} 
+          {/* <span>Talk to Support: 400 632 6626</span> */}
         </div>
       </div>
     );

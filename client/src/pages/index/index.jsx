@@ -60,7 +60,7 @@ class Index extends React.Component {
 							{/* <img src={require('../../assets/images/ag-logo.png')} alt="" /> */}
 							<p className='login-title'>Welcome to Atlas</p>
 							<p className='login-subtitle'>
-								How Wsrould You Like To Learn Today?
+								How Would You Like To Learn Today?
 							</p>
 						</div>
 						<div className='login-body'>

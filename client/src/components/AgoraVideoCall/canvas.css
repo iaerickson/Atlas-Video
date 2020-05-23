@@ -12,6 +12,7 @@
 	background: url("../../assets/images/student.png") center no-repeat;
 	height: 100%;
 	width: 100%;
+	/* change size of grid */
 }
 
 #ag-resize-container {

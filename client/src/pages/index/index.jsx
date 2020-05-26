@@ -64,6 +64,12 @@ class Index extends React.Component {
 							</p>
 						</div>
 						<div className='login-body'>
+							<div className='p p-1'></div>
+							<div className='p p-2'></div>
+							<div className='p p-3'></div>
+							<div className='p p-4'></div>
+							<div className='p p-5'></div>
+							<div className='p p-6'></div>
 							<div className='columns'>
 								<div className='column is-12'>
 									<InputChannel

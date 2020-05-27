@@ -31,7 +31,7 @@ router.route("/signup").post((req, res) => {
 // 	});
 
 //Non-Authenticated routes
-router.route("/:id").get(usersController.findById(req.params.id));
+//router.route("/:id").get(usersController.findById(req, res));
 
 // 	.put(usersController.update)
 // 	.delete(usersController.remove);

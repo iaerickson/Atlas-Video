@@ -39,6 +39,63 @@
 	border: 1.5px solid grey;
 	border-radius: 20px;
 }
+@keyframes particleAnimation {
+	from {
+		left: -100px;
+	}
+	to {
+		left: calc(100% + 100px);
+	}
+}
+
+.p {
+	position: fixed;
+	left: 0px;
+	top: 50px;
+	width: 1px;
+	height: 1px;
+	background-color: white;
+	animation-name: particleAnimation;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+.p::before {
+	position: absolute;
+	display: block;
+	content: "";
+	width: 100px;
+	right: 1px;
+	top: 0px;
+	height: 1px;
+	background: linear-gradient(
+		to right,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(255, 255, 255, 0.4) 100%
+	);
+}
+.p-1 {
+	animation-duration: 10s;
+}
+.p-2 {
+	animation-duration: 5s;
+	top: 60%;
+}
+.p-3 {
+	animation-duration: 7s;
+	top: 88%;
+}
+.p-4 {
+	animation-duration: 20s;
+	top: 33%;
+}
+.p-5 {
+	animation-duration: 12s;
+	top: 75%;
+}
+.p-6 {
+	animation-duration: 15s;
+	top: 18%;
+}
 
 .login-header,
 .login-footer {

@@ -31,7 +31,7 @@ router.route("/signup").post((req, res) => {
 // 	});
 
 //Non-Authenticated routes
-router.route("/:id").get(usersController.findById);
+router.route("/:id").get(usersController.findById(req.params.id));
 
 // 	.put(usersController.update)
 // 	.delete(usersController.remove);
@@ -40,9 +40,10 @@ router.route("/:id").get(usersController.findById);
 router.route("/newUser").post((req, res) => {
 	usersController.create(req, res);
 });
-
-router.route("/:firstName").get(usersController.findByFirstName);
-router.route("/:email").get(usersController.findByEmail);
+//no way for routing to know whats what
+router.route("/firstName/:firstName").get(usersController.findByFirstName);
+//send in body
+router.route("/email/:email").get(usersController.findByEmail);
 
 //router.route.get
 

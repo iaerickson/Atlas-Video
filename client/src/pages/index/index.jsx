@@ -47,7 +47,13 @@ class Index extends React.Component {
 		Cookies.set("transcode", this.state.transcode);
 		Cookies.set("attendeeMode", this.state.attendeeMode);
 		Cookies.set("videoProfile", this.state.videoProfile);
-		window.location.hash = "meeting";
+		if (this.state.baseMode === "avc") {
+			
+			window.location.hash = "classroom";
+		} else {
+			window.location.hash = "tutoring";
+
+		}
 	};
 
 	render() {

@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const auth = require("../../config/auth");
-const isAuthenticated = require("../../config/isAuthenticated");
 const usersController = require("../../controllers/usersController");
 
 //Login
@@ -17,6 +16,7 @@ router.route("/signup").post((req, res) => {
 });
 
 // Matches with "/api/users/:id" as long as it is authenticated with valid token
+//authenticated in controller function
 
 // router
 // 	.route("/:id")
@@ -44,7 +44,5 @@ router.route("/newUser").post((req, res) => {
 router.route("/firstName/:firstName").get(usersController.findByFirstName);
 //send in body
 router.route("/email/:email").get(usersController.findByEmail);
-
-//router.route.get
 
 module.exports = router;

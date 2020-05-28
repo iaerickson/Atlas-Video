@@ -1,4 +1,5 @@
 const db = require("../models");
+const isAuthenticated = require("../config/isAuthenticated");
 
 // Defining methods for the usersController
 module.exports = {

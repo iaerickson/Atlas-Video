@@ -38,7 +38,7 @@
 	border-radius: 20px;
 }
 
-@keyframes particleAnimation {
+/* @keyframes particleAnimation {
 	from {
 		left: -100px;
 	}
@@ -94,7 +94,7 @@
 .p-6 {
 	animation-duration: 15s;
 	top: 18%;
-}
+} */
 
 .login-header,
 .login-footer {

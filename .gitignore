@@ -1,11 +1,2 @@
-*.*~
-release/
-*.local
-build
-.DS_Store
-*.log
-src/assets/.DS_Store
-!src/assets/
 node_modules
-app/log
-app/*.log
+

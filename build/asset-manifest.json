@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/education/web/static/css/main.b74e9f84.chunk.css",
+    "main.js": "/education/web/static/js/main.1ff319b0.chunk.js",
+    "main.js.map": "/education/web/static/js/main.1ff319b0.chunk.js.map",
+    "runtime-main.js": "/education/web/static/js/runtime-main.57408721.js",
+    "runtime-main.js.map": "/education/web/static/js/runtime-main.57408721.js.map",
+    "static/css/2.5b79b3b6.chunk.css": "/education/web/static/css/2.5b79b3b6.chunk.css",
+    "static/js/2.55e86c82.chunk.js": "/education/web/static/js/2.55e86c82.chunk.js",
+    "static/js/2.55e86c82.chunk.js.map": "/education/web/static/js/2.55e86c82.chunk.js.map",
+    "03d031f7569fdce94d7a.worker.js": "/education/web/03d031f7569fdce94d7a.worker.js",
+    "03d031f7569fdce94d7a.worker.js.map": "/education/web/03d031f7569fdce94d7a.worker.js.map",
+    "index.html": "/education/web/index.html",
+    "precache-manifest.0fb9eee3a11926b0dfaaa7d3bf3ec573.js": "/education/web/precache-manifest.0fb9eee3a11926b0dfaaa7d3bf3ec573.js",
+    "service-worker.js": "/education/web/service-worker.js",
+    "static/css/2.5b79b3b6.chunk.css.map": "/education/web/static/css/2.5b79b3b6.chunk.css.map",
+    "static/css/main.b74e9f84.chunk.css.map": "/education/web/static/css/main.b74e9f84.chunk.css.map",
+    "static/media/index.scss": "/education/web/static/media/cover-us.a2d244ac.png",
+    "static/media/replay.scss": "/education/web/static/media/pic-teacher.580ff5f1.png",
+    "static/media/icons.scss": "/education/web/static/media/pic-student.f5d3055b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57408721.js",
+    "static/css/2.5b79b3b6.chunk.css",
+    "static/js/2.55e86c82.chunk.js",
+    "static/css/main.b74e9f84.chunk.css",
+    "static/js/main.1ff319b0.chunk.js"
+  ]
+}

@@ -1,11 +1,11 @@
 import React from "react";
 import * as Cookies from "js-cookie";
 
-import "./meeting.css";
+import "./tutoring.css";
 import AgoraVideoCall from "../../components/AgoraVideoCall";
 import { AGORA_APP_ID } from "../../agora.config";
 
-class Meeting extends React.Component {
+class Tutoring extends React.Component {
   constructor(props) {
     super(props);
     this.videoProfile = Cookies.get("videoProfile").split(",")[0] || "480p_4";
@@ -21,8 +21,9 @@ class Meeting extends React.Component {
   }
 
   render() {
+    var tutChannel = "tut" + this.channel;
     return (
-      <div className="wrapper meeting">
+      <div className="wrapper tutoring">
         <div className="ag-header">
           <div className="ag-header-lead">
             {/* <img
@@ -40,7 +41,7 @@ class Meeting extends React.Component {
           <div className="ag-container">
             <AgoraVideoCall
               videoProfile={this.videoProfile}
-              channel={this.channel}
+              channel={tutChannel}
               transcode={this.transcode}
               attendeeMode={this.attendeeMode}
               baseMode={this.baseMode}
@@ -60,4 +61,4 @@ class Meeting extends React.Component {
   }
 }
 
-export default Meeting;
+export default Tutoring;

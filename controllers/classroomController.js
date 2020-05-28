@@ -22,3 +22,5 @@ module.exports = {
 			.catch((err) => res.status(422).json(err));
 	},
 };
+
+//https://docs.agora.io/en/Video/API%20Reference/web/index.html for class functionality

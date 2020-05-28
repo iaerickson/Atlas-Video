@@ -50,10 +50,12 @@ class AgoraCanvas extends React.Component {
 		super(props);
 		this.client = {};
 		this.localStream = {};
+		this.screenStream = {};
 		this.shareClient = {};
 		this.shareStream = {};
 		this.state = {
 			displayMode: "pip",
+			//what does pip mean?
 			streamList: [],
 			readyState: false,
 		};
@@ -65,6 +67,7 @@ class AgoraCanvas extends React.Component {
 		this.client = AgoraRTC.createClient({ mode: $.transcode });
 		this.client.init($.appId, () => {
 			console.log("AgoraRTC client initialized");
+
 			this.subscribeStreamEvents();
 			this.client.join($.appId, $.channel, $.uid, (uid) => {
 				console.log("User " + uid + " join channel successfully");
@@ -113,12 +116,13 @@ class AgoraCanvas extends React.Component {
 	// }
 
 	componentDidUpdate() {
+		let sliced = this.client.channel.slice(0, 3);
 		// rerendering
 		let canvas = document.querySelector("#ag-canvas");
 		// pip mode (can only use when less than 4 people in channel)
 		if (this.state.displayMode === "pip") {
 			let no = this.state.streamList.length;
-			if (no > 4) {
+			if (no > 4 || sliced === "tut") {
 				this.setState({ displayMode: "tile" });
 				return;
 			}
@@ -132,20 +136,16 @@ class AgoraCanvas extends React.Component {
 					canvas.appendChild(dom);
 					item.play("ag-item-" + id);
 				}
-				//determines how the images are being displayed in the canvas
-				//localstream
 				if (index === no - 1) {
-					dom.setAttribute("style", `grid-area: span 12/span 24/13/25`);
-				}
-				//renders all otherstreams
-				else {
+					// (total # of rows, total # of columns, last two mess up the grid somehow need more research)
+					dom.setAttribute("style", `grid-area: span 12/span 12/13/12`);
+				} else {
 					dom.setAttribute(
 						"style",
 						`grid-area: span 3/span 4/${4 + 3 * index}/25;
                     z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
 				}
-
 				item.player.resize && item.player.resize();
 			});
 		}
@@ -166,7 +166,7 @@ class AgoraCanvas extends React.Component {
 				item.player.resize && item.player.resize();
 			});
 		}
-		// screen share mode (tbd)
+		// this is where we will render our screenshare stream
 		else if (this.state.displayMode === "share") {
 		}
 	}
@@ -192,16 +192,19 @@ class AgoraCanvas extends React.Component {
 			video: true,
 			screen: false,
 		};
-		//Add more cases for different joining privs
+
 		switch (attendeeMode) {
 			case "audio-only":
 				defaultConfig.video = false;
 				break;
-			case "student":
-				defaultConfig.audio = false;
-				break;
 			case "audience":
 				defaultConfig.video = false;
+				defaultConfig.audio = false;
+				break;
+			case "screenshare":
+				defaultConfig.video = false;
+				defaultConfig.screen = true;
+				defaultConfig.screenaudio = true;
 				defaultConfig.audio = false;
 				break;
 			default:
@@ -363,6 +366,37 @@ class AgoraCanvas extends React.Component {
 			window.location.hash = "";
 		}
 	};
+	shareScreen = (e) => {
+		let $ = this.props;
+		// init AgoraRTC screenshare client
+		this.client = AgoraRTC.createClient({ mode: $.transcode });
+		this.client.init($.appId, () => {
+			console.log("AgoraRTC screenshareclient initialized");
+			this.subscribeStreamEvents();
+			this.client.join($.appId, $.channel, $.uid, (uid) => {
+				console.log("User " + uid + " join channel successfully");
+				console.log("At " + new Date().toLocaleTimeString());
+				// create local stream
+				// It is not recommended to setState in function addStream
+				this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
+				this.screenStream.init(
+					() => {
+						if ($.attendeeMode !== "audience") {
+							this.addStream(this.screenStream, true);
+							this.client.publish(this.screenStream, (err) => {
+								console.log("Publish screen stream error: " + err);
+							});
+						}
+						this.setState({ readyState: true });
+					},
+					(err) => {
+						console.log("getUserMedia failed", err);
+						this.setState({ readyState: true });
+					}
+				);
+			});
+		});
+	};
 
 	render() {
 		const style = {
@@ -438,6 +472,17 @@ class AgoraCanvas extends React.Component {
 				<i className='ag-icon ag-icon-leave'></i>
 			</span>
 		);
+		const screenshareBtn = (
+			<span
+				onClick={this.shareScreen}
+				className={
+					this.state.readyState ? "ag-btn exitBtn" : "ag-btn exitBtn disabled"
+				}
+				title='Share Screen'
+			>
+				<i className='ag-icon ag-icon-screen-share'></i>
+			</span>
+		);
 
 		return (
 			<div id='ag-canvas' style={style}>
@@ -445,9 +490,7 @@ class AgoraCanvas extends React.Component {
 					{exitBtn}
 					{videoControlBtn}
 					{audioControlBtn}
-					{/* <span className="ag-btn shareScreenBtn" title="Share Screen">
-                        <i className="ag-icon ag-icon-screen-share"></i>
-                    </span> */}
+					{screenshareBtn}
 					{switchDisplayBtn}
 					{hideRemoteBtn}
 				</div>

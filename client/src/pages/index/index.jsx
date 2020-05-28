@@ -263,14 +263,14 @@ class BaseOptions extends React.Component {
 		super(props);
 		this._options = [
 			{
-				label: "Tutoring Session",
+				label: "Classroom",
 				value: "avc",
-				content: "One to one and group calls",
+				content: "Classroom setting with teacher and student-specific features",
 			},
 			{
-				label: "Classroom",
+				label: "Tutoring Session",
 				value: "al",
-				content: "Classroom setting with teacher and student-specific features",
+				content: "One to one and group calls",
 			},
 		];
 		this.state = {

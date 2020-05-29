@@ -49,7 +49,8 @@ class Index extends React.Component {
 		Cookies.set("videoProfile", this.state.videoProfile);
 		if (this.state.baseMode === "avc") {
 			window.location.hash = "classroom";
-		} else {
+		}
+		else {
 			window.location.hash = "tutoring";
 		}
 	};
@@ -263,25 +264,27 @@ class InputChannel extends React.Component {
 }
 
 class BaseOptions extends React.Component {
-	constructor(props) {
-		super(props);
-		this._options = [
-			{
-				label: "Classroom",
-				value: "avc",
-				content: "Classroom setting with teacher and student-specific features",
-			},
-			{
-				label: "Tutoring Session",
-				value: "al",
-				content: "One to one and group calls",
-			},
-		];
-		this.state = {
-			active: false,
-			message: "Type of Session",
-		};
-	}
+  constructor(props) {
+    super(props)
+    this._options = [
+      {
+        label: 'Classroom',
+        value: 'avc',
+        content: 'Classroom setting with teacher and student-specific features'
+      },
+      {
+        label: 'Tutoring Session',
+        value: 'al',
+        content: 'One to one and group calls'
+      }
+
+    ]
+    this.state = {
+      active: false,
+      message: 'Type of Session',
+
+    }
+  }
 
 	handleSelect = (item) => {
 		let msg = item.label;

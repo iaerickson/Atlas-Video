@@ -62,13 +62,18 @@ class Index extends React.Component {
 	handleGenerateChannel = () => {
 
 	let newChannel = Math.random().toString(15).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+	let channeInput = document.getElementById("channel")
 
 	console.log(newChannel)
 
 	this.setState({
 		channel: newChannel,
 		joinBtn: true,
-	});
+	})
+	
+	channeInput.value = newChannel
+	
+
 		
 	}
 

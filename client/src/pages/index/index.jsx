@@ -19,6 +19,7 @@ class Index extends React.Component {
 		};
 	}
 
+
 	componentDidMount() {
 		window.addEventListener("keypress", (e) => {
 			e.keyCode === 13 && this.handleJoin();
@@ -53,7 +54,24 @@ class Index extends React.Component {
 		else {
 			window.location.hash = "tutoring";
 		}
-	};
+
+
+
+	}
+
+	handleGenerateChannel = () => {
+
+	let newChannel = Math.random().toString(15).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+
+	console.log(newChannel)
+
+	this.setState({
+		channel: newChannel,
+		joinBtn: true,
+	});
+		
+	}
+
 
 	render() {
 		return (
@@ -81,6 +99,15 @@ class Index extends React.Component {
 										onChange={this.handleChannel}
 										placeholder='Input a room name here'
 									></InputChannel>
+									<div className='login-footer'>
+							<a
+								id='generateChannel'
+								onClick={this.handleGenerateChannel}
+								className='ag-rounded button is-info'
+							>
+								Generate Secure Room Name
+							</a>
+						</div>
 								</div>
 							</div>
 							<div className='columns'>

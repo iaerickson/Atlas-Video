@@ -55,9 +55,9 @@ class AgoraCanvas extends React.Component {
 		this.shareStream = {};
 		this.state = {
 			displayMode: "pip",
-
 			streamList: [],
 			readyState: false,
+			channel: window.location.href.split('/').pop()
 		};
 	}
 
@@ -70,7 +70,7 @@ class AgoraCanvas extends React.Component {
 			console.log("AgoraRTC client initialized");
 
 			this.subscribeStreamEvents();
-			this.client.join($.appId, $.channel, $.uid, (uid) => {
+			this.client.join($.appId, window.location.href.split('/').pop(), $.uid, (uid) => {
 				console.log("User " + uid + " join channel successfully");
 				console.log("At " + new Date().toLocaleTimeString());
 				// create local stream
@@ -437,8 +437,8 @@ class AgoraCanvas extends React.Component {
 					<i className='ag-icon ag-icon-camera-off'></i>
 				</span>
 			) : (
-				""
-			);
+					""
+				);
 
 		const audioControlBtn =
 			this.props.attendeeMode !== "audience" ? (
@@ -451,8 +451,8 @@ class AgoraCanvas extends React.Component {
 					<i className='ag-icon ag-icon-mic-off'></i>
 				</span>
 			) : (
-				""
-			);
+					""
+				);
 
 		const switchDisplayBtn = (
 			<span

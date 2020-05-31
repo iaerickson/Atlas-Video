@@ -55,7 +55,7 @@ class AgoraCanvas extends React.Component {
 		this.shareStream = {};
 		this.state = {
 			displayMode: "pip",
-			//what does pip mean?
+
 			streamList: [],
 			readyState: false,
 		};
@@ -63,6 +63,7 @@ class AgoraCanvas extends React.Component {
 
 	componentWillMount() {
 		let $ = this.props;
+		console.log($)
 		// init AgoraRTC local client
 		this.client = AgoraRTC.createClient({ mode: $.transcode });
 		this.client.init($.appId, () => {

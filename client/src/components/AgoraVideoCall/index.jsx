@@ -217,8 +217,8 @@ class AgoraCanvas extends React.Component {
 				defaultConfig.video = false;
 				break;
 			case "audience":
-				defaultConfig.video = false;
-				defaultConfig.audio = false;
+				defaultConfig.video = true;
+				defaultConfig.audio = true;
 				break;
 			case "screenshare":
 				defaultConfig.video = false;
@@ -400,12 +400,12 @@ class AgoraCanvas extends React.Component {
 				this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
 				this.screenStream.init(
 					() => {
-						if ($.attendeeMode !== "audience") {
+						
 							this.addStream(this.screenStream, true);
 							this.client.publish(this.screenStream, (err) => {
 								console.log("Publish screen stream error: " + err);
 							});
-						}
+						
 						this.setState({ readyState: true });
 					},
 					(err) => {

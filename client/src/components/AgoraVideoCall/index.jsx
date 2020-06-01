@@ -55,22 +55,24 @@ class AgoraCanvas extends React.Component {
 		this.shareStream = {};
 		this.state = {
 			displayMode: "pip",
-			//what does pip mean?
 			streamList: [],
 			readyState: false,
+      
 			selectedStream: 0
+			channel: window.location.href.split('/').pop()
 		};
 	}
 
 	componentWillMount() {
 		let $ = this.props;
+		console.log($)
 		// init AgoraRTC local client
 		this.client = AgoraRTC.createClient({ mode: $.transcode });
 		this.client.init($.appId, () => {
 			console.log("AgoraRTC client initialized");
 
 			this.subscribeStreamEvents();
-			this.client.join($.appId, $.channel, $.uid, (uid) => {
+			this.client.join($.appId, window.location.href.split('/').pop(), $.uid, (uid) => {
 				console.log("User " + uid + " join channel successfully");
 				console.log("At " + new Date().toLocaleTimeString());
 				// create local stream
@@ -227,8 +229,8 @@ class AgoraCanvas extends React.Component {
 				defaultConfig.video = false;
 				break;
 			case "audience":
-				defaultConfig.video = false;
-				defaultConfig.audio = false;
+				defaultConfig.video = true;
+				defaultConfig.audio = true;
 				break;
 			case "screenshare":
 				defaultConfig.video = false;
@@ -411,12 +413,12 @@ class AgoraCanvas extends React.Component {
 				this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
 				this.screenStream.init(
 					() => {
-						if ($.attendeeMode !== "audience") {
+						
 							this.addStream(this.screenStream, true);
 							this.client.publish(this.screenStream, (err) => {
 								console.log("Publish screen stream error: " + err);
 							});
-						}
+						
 						this.setState({ readyState: true });
 					},
 					(err) => {
@@ -448,8 +450,8 @@ class AgoraCanvas extends React.Component {
 					<i className='ag-icon ag-icon-camera-off'></i>
 				</span>
 			) : (
-				""
-			);
+					""
+				);
 
 		const audioControlBtn =
 			this.props.attendeeMode !== "audience" ? (
@@ -462,8 +464,8 @@ class AgoraCanvas extends React.Component {
 					<i className='ag-icon ag-icon-mic-off'></i>
 				</span>
 			) : (
-				""
-			);
+					""
+				);
 
 		const switchDisplayBtn = (
 			<span

@@ -9,7 +9,7 @@ class Classroom extends React.Component {
   constructor(props) {
     super(props);
     this.videoProfile = Cookies.get("videoProfile").split(",")[0] || "480p_4";
-    this.channel = Cookies.get("channel") || "test";
+    this.channel = window.location.href.split('/').pop() || "test";
     this.transcode = Cookies.get("transcode") || "interop";
     this.attendeeMode = Cookies.get("attendeeMode") || "video";
     this.baseMode = Cookies.get("baseMode") || "avc";
@@ -20,21 +20,44 @@ class Classroom extends React.Component {
     this.uid = undefined;
   }
 
+ 
+
+    //   const channelDiv = document.getElementById("room-name").textContent
+    //   const tempTextArea = document.createElement("temptext")
+
+    //   document.body.appendChild(tempTextArea)
+    //   tempTextArea.value= channelDiv
+    //   console.log(tempTextArea)
+    //   // tempTextArea.select()
+    //   // document.execCommand("Copy")
+    //   // tempTextArea.remove() 
+    //   // console.log(channelDiv)
+
+    //   alert("Channel Name Copied To Clipboard")
+  // }
+
+
+
   render() {
     return (
       <div className="wrapper meeting">
         <div className="ag-header">
           <div className="ag-header-lead">
-            {/* <img
-              className="header-logo"
-              src={require("../../assets/images/ag-logo.png")}
-              alt=""
-            /> */}
-            {/* <span>AgoraWeb v2.1</span> */}
+
           </div>
           <div className="ag-header-msg">
-            Room:&nbsp;<span id="room-name">{this.channel}</span>
+            Room:&nbsp;<span id="room-name">{this.channel}
+
+            </span>
+            <a
+              id='joinBtn'
+              onClick={this.copyChannelName}
+              className='coptBtn'
+            >
+              Copy
+							</a>
           </div>
+
         </div>
         <div className="ag-main">
           <div className="ag-container">
@@ -52,7 +75,7 @@ class Classroom extends React.Component {
         <div className="ag-footer">
           {/* <a className="ag-href" href="https://www.agora.io">
             {/* <span>Powered By Agora</span> */}
-          {/* </a> */} 
+          {/* </a> */}
           {/* <span>Talk to Support: 400 632 6626</span> */}
         </div>
       </div>

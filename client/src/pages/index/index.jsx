@@ -19,6 +19,7 @@ class Index extends React.Component {
 		};
 	}
 
+
 	componentDidMount() {
 		window.addEventListener("keypress", (e) => {
 			e.keyCode === 13 && this.handleJoin();
@@ -48,12 +49,35 @@ class Index extends React.Component {
 		Cookies.set("attendeeMode", this.state.attendeeMode);
 		Cookies.set("videoProfile", this.state.videoProfile);
 		if (this.state.baseMode === "avc") {
-			window.location.hash = "classroom";
+			window.location.hash = `classroom/${this.state.channel}`
+			console.log(this.state)
 		}
 		else {
-			window.location.hash = "tutoring";
+			window.location.hash = `tutoring/${this.state.channel}`;
 		}
-	};
+
+
+
+	}
+
+	handleGenerateChannel = () => {
+
+		let newChannel = Math.random().toString(15).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+		let channeInput = document.getElementById("channel")
+
+		console.log(newChannel)
+
+		this.setState({
+			channel: newChannel,
+			joinBtn: true,
+		})
+
+		channeInput.value = newChannel
+
+
+
+	}
+
 
 	render() {
 		return (
@@ -79,8 +103,17 @@ class Index extends React.Component {
 								<div className='column is-12'>
 									<InputChannel
 										onChange={this.handleChannel}
-										placeholder='Input a room name here'
+										placeholder='Enter or generate channel'
 									></InputChannel>
+									<div className='login-footer'>
+										<a
+											id='generateChannel'
+											onClick={this.handleGenerateChannel}
+											className='ag-rounded button is-info'
+										>
+											Generate Secure Room Name
+							</a>
+									</div>
 								</div>
 							</div>
 							<div className='columns'>
@@ -264,27 +297,27 @@ class InputChannel extends React.Component {
 }
 
 class BaseOptions extends React.Component {
-  constructor(props) {
-    super(props)
-    this._options = [
-      {
-        label: 'Classroom',
-        value: 'avc',
-        content: 'Classroom setting with teacher and student-specific features'
-      },
-      {
-        label: 'Tutoring Session',
-        value: 'al',
-        content: 'One to one and group calls'
-      }
+	constructor(props) {
+		super(props)
+		this._options = [
+			{
+				label: 'Classroom',
+				value: 'avc',
+				content: 'Classroom setting with teacher and student-specific features'
+			},
+			{
+				label: 'Tutoring Session',
+				value: 'al',
+				content: 'One to one and group calls'
+			}
 
-    ]
-    this.state = {
-      active: false,
-      message: 'Type of Session',
+		]
+		this.state = {
+			active: false,
+			message: 'Type of Session',
 
-    }
-  }
+		}
+	}
 
 	handleSelect = (item) => {
 		let msg = item.label;

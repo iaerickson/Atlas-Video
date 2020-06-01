@@ -1,8 +1,7 @@
 import React from "react";
 import * as Cookies from "js-cookie";
-
+import InputChannel from "../../components/InputChannel";
 import "../../assets/fonts/css/icons.css";
-import Validator from "../../utils/Validator";
 import { RESOLUTION_ARR } from "../../utils/Settings";
 import "./index.css";
 
@@ -49,8 +48,7 @@ class Index extends React.Component {
 		Cookies.set("videoProfile", this.state.videoProfile);
 		if (this.state.baseMode === "avc") {
 			window.location.hash = "classroom";
-		}
-		else {
+		} else {
 			window.location.hash = "tutoring";
 		}
 	};
@@ -58,6 +56,12 @@ class Index extends React.Component {
 	render() {
 		return (
 			<div className='wrapper index'>
+				<div className='p p-1'></div>
+				<div className='p p-2'></div>
+				<div className='p p-3'></div>
+				<div className='p p-4'></div>
+				<div className='p p-5'></div>
+				<div className='p p-6'></div>
 				<div className='ag-header'></div>
 				<div className='ag-main'>
 					<section className='login-wrapper'>
@@ -69,25 +73,19 @@ class Index extends React.Component {
 							</p>
 						</div>
 						<div className='login-body'>
-							<div className='p p-1'></div>
-							<div className='p p-2'></div>
-							<div className='p p-3'></div>
-							<div className='p p-4'></div>
-							<div className='p p-5'></div>
-							<div className='p p-6'></div>
 							<div className='columns'>
 								<div className='column is-12'>
 									<InputChannel
 										onChange={this.handleChannel}
 										placeholder='Input a room name here'
-									></InputChannel>
+									/>
 								</div>
 							</div>
 							<div className='columns'>
 								<div className='column is-7'>
 									<BaseOptions
 										onChange={(val) => this.setState({ baseMode: val })}
-									></BaseOptions>
+									/>
 								</div>
 								<div className='column is-5'>
 									<AdvancedOptions
@@ -95,7 +93,7 @@ class Index extends React.Component {
 										onSelectChange={(val) =>
 											this.setState({ videoProfile: val })
 										}
-									></AdvancedOptions>
+									/>
 								</div>
 							</div>
 							<div className='columns'>
@@ -177,114 +175,26 @@ class Index extends React.Component {
 	}
 }
 
-class InputChannel extends React.Component {
+class BaseOptions extends React.Component {
 	constructor(props) {
 		super(props);
+		this._options = [
+			{
+				label: "Classroom",
+				value: "avc",
+				content: "Classroom setting with teacher and student-specific features",
+			},
+			{
+				label: "Tutoring Session",
+				value: "al",
+				content: "One to one and group calls",
+			},
+		];
 		this.state = {
-			errorMsg: "",
-			state: "",
+			active: false,
+			message: "Type of Session",
 		};
 	}
-
-	validate = (val) => {
-		this.setState({
-			state: "",
-			errorMsg: "",
-		});
-		if (Validator.isNonEmpty(val.trim())) {
-			this.setState({
-				errorMsg: "Cannot be empty!",
-				state: "is-danger",
-			});
-			return false;
-		} else if (Validator.minLength(val.trim(), 1)) {
-			this.setState({
-				errorMsg: "No shorter than 1!",
-				state: "is-danger",
-			});
-			return false;
-		} else if (Validator.maxLength(val.trim(), 16)) {
-			this.setState({
-				errorMsg: "No longer than 16!",
-				state: "is-danger",
-			});
-			return false;
-		} else if (Validator.validChar(val.trim())) {
-			this.setState({
-				state: "is-danger",
-				errorMsg:
-					'Only capital or lower-case letter, number and "_" are permitted!',
-			});
-			return false;
-		} else {
-			this.setState({
-				state: "is-success",
-			});
-			return true;
-		}
-	};
-
-	handleChange = (e) => {
-		let state = this.validate(e.target.value);
-		this.props.onChange(e.target.value, state);
-	};
-
-	render() {
-		let validateIcon = "";
-		switch (this.state.state) {
-			default:
-			case "":
-				validateIcon = "";
-				break;
-			case "is-success":
-				validateIcon = <i className='ag-icon ag-icon-valid'></i>;
-				break;
-			case "is-danger":
-				validateIcon = <i className='ag-icon ag-icon-invalid'></i>;
-				break;
-		}
-
-		return (
-			<div className='channel-wrapper control has-icons-left'>
-				<input
-					onInput={this.handleChange}
-					id='channel'
-					className={"ag-rounded input " + this.state.state}
-					type='text'
-					placeholder={this.props.placeholder}
-				/>
-				<span className='icon is-small is-left'>
-					<img src={require("../../assets/images/ag-login.png")} alt='' />
-				</span>
-				<span className='validate-icon'>{validateIcon}</span>
-				<div className='validate-msg'>{this.state.errorMsg}</div>
-			</div>
-		);
-	}
-}
-
-class BaseOptions extends React.Component {
-  constructor(props) {
-    super(props)
-    this._options = [
-      {
-        label: 'Classroom',
-        value: 'avc',
-        content: 'Classroom setting with teacher and student-specific features'
-      },
-      {
-        label: 'Tutoring Session',
-        value: 'al',
-        content: 'One to one and group calls'
-      }
-
-    ]
-    this.state = {
-      active: false,
-      message: 'Type of Session',
-
-    }
-  }
 
 	handleSelect = (item) => {
 		let msg = item.label;

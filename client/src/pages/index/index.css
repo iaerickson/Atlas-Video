@@ -144,7 +144,8 @@
 }
 
 .channel-wrapper.has-icons-left .icon.is-left {
-	left: 15px;
+	left: 5px;
+	padding-bottom: 2.5px;
 }
 
 #baseMode {

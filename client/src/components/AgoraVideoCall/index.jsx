@@ -57,6 +57,8 @@ class AgoraCanvas extends React.Component {
 			displayMode: "pip",
 			streamList: [],
 			readyState: false,
+      
+			selectedStream: 0
 			channel: window.location.href.split('/').pop()
 		};
 	}
@@ -117,7 +119,7 @@ class AgoraCanvas extends React.Component {
 	// }
 
 	componentDidUpdate() {
-		let sliced = this.client.channel.slice(0, 3);
+		let sliced = this.client.channel.slice(0, 3);;
 		// rerendering
 		let canvas = document.querySelector("#ag-canvas");
 		// pip mode (can only use when less than 4 people in channel)
@@ -130,14 +132,20 @@ class AgoraCanvas extends React.Component {
 			this.state.streamList.map((item, index) => {
 				let id = item.getId();
 				let dom = document.querySelector("#ag-item-" + id);
+				let ths = this;
+				let strmLst = this.state.streamList
+				let indexFinder = strmLst.findIndex(function(streams, indexFinder) {
+					return streams.elementID === "ag-item-" + id
+				})
 				if (!dom) {
 					dom = document.createElement("section");
 					dom.setAttribute("id", "ag-item-" + id);
 					dom.setAttribute("class", "ag-item");
 					canvas.appendChild(dom);
 					item.play("ag-item-" + id);
+
 				}
-				if (index === no - 1) {
+				if (this.state.selectedStream === index) {
 					// (total # of rows, total # of columns, last two mess up the grid somehow need more research)
 					dom.setAttribute("style", `grid-area: span 12/span 12/13/12`);
 				} else if (index > 11 && index < 16) {
@@ -146,6 +154,7 @@ class AgoraCanvas extends React.Component {
 						`grid-area: span 3/span 3/${4 + 3 * (index - 12)}/24;
                     z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
+
 				} else if (index > 7 && index < 12) {
 					dom.setAttribute(
 						"style",
@@ -161,9 +170,12 @@ class AgoraCanvas extends React.Component {
 				} else {
 					dom.setAttribute(
 						"style",
-						`grid-area: span 3/span 3/${4 + 3 * index}/15;
-          z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
+						`grid-area: span 3/span 3/${4 + 3 * (index)}/15;
+          			z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
+					dom.addEventListener("click", function() {
+						ths.setState({ selectedStream: indexFinder });
+					});
 				}
 				item.player.resize && item.player.resize();
 			});
@@ -301,7 +313,8 @@ class AgoraCanvas extends React.Component {
 			this.setState({
 				streamList: this.state.streamList.concat([stream]),
 			});
-		} else {
+		} 
+		else {
 			this.setState({
 				streamList: [stream].concat(this.state.streamList),
 			});

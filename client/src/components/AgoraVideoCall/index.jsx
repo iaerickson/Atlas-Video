@@ -58,7 +58,7 @@ class AgoraCanvas extends React.Component {
 			streamList: [],
 			readyState: false,
       
-			selectedStream: 0
+			selectedStream: 0,
 			channel: window.location.href.split('/').pop()
 		};
 	}

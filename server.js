@@ -30,15 +30,15 @@ app.use(function (err, req, res, next) {
 });
 
 // Connect to the Mongo DB on heroku
-mongoose.connect(
-	process.env.MONGODB_URI ||
-		"mongodb://TIL-NU:banana333@ds159651.mlab.com:59651/heroku_76wd45xm"
-);
+// mongoose.connect(
+// 	process.env.MONGODB_URI ||
+// 		"mongodb://TIL-NU:banana333@ds159651.mlab.com:59651/heroku_76wd45xm"
+// );
 
 // //Connect to local Mongo Test
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/atlas", {
-// 	useNewUrlParser: true,
-// });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/atlas", {
+	useNewUrlParser: true,
+});
 
 // Start the API server
 app.listen(PORT, function () {

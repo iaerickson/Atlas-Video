@@ -10,6 +10,7 @@ import Login from "./login";
 import SignUp from "./signup";
 
 class App extends Component {
+
 	render() {
 		return (
 			<Router>
@@ -23,6 +24,7 @@ class App extends Component {
 			</Router>
 		);
 	}
+
 }
 
 export default App;

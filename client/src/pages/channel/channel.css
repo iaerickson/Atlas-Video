@@ -354,3 +354,7 @@
 .validate-icon > .ag-icon-valid {
 	color: #7ed321;
 }
+
+#baseOptionLabel {
+    color: black !important;
+}

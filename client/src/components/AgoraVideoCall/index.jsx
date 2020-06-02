@@ -134,19 +134,27 @@ class AgoraCanvas extends React.Component {
 						`grid-area: span 3/span 3/${4 + 3 * (index - 12)}/24;
                     z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
-
+					dom.addEventListener("click", function() {
+						ths.setState({ selectedStream: indexFinder });
+					});
 				} else if (index > 7 && index < 12) {
 					dom.setAttribute(
 						"style",
 						`grid-area: span 3/span 3/${4 + 3 * (index - 8)}/21;
                     z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
+					dom.addEventListener("click", function() {
+						ths.setState({ selectedStream: indexFinder });
+					});
 				} else if (index > 3 && index < 8) {
 					dom.setAttribute(
 						"style",
 						`grid-area: span 3/span 3/${4 + 3 * (index - 4)}/18;
                     z-index:1;width:calc(100% - 20px);height:calc(100% - 20px)`
 					);
+					dom.addEventListener("click", function() {
+						ths.setState({ selectedStream: indexFinder });
+					});
 				} else {
 					dom.setAttribute(
 						"style",
@@ -358,7 +366,7 @@ class AgoraCanvas extends React.Component {
 			this.setState({ readyState: false });
 			this.client = null;
 			this.localStream = null;
-			window.location.hash = "";
+			window.location.hash = "/channel";
 		}
 	};
 	shareScreen = (e) => {

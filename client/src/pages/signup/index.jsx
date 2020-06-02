@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/fonts/css/icons.css";
-
-import "bulma/css/bulma.css";
 import "./signup.css";
 import SignUpForm from "../../components/SignUpForm";
 import API from "../../utils/API";
@@ -32,10 +30,7 @@ class SignUp extends React.Component {
 		event.preventDefault();
 		console.log(this.state.password);
 		console.log(this.state.confirm);
-		if (this.state.password !== this.state.confirm) {
-			console.log("passwords do not match");
-			return false;
-		}
+
 		API.createNewUser(this.state)
 			.then((res) => {
 				if (res.data.status === "error") {
@@ -70,6 +65,7 @@ class SignUp extends React.Component {
 									<SignUpForm
 										handleInput={this.handleInput}
 										handleFormSubmit={this.handleFormSubmit}
+										inputPassword={this.state.password}
 									/>
 								</div>
 							</div>

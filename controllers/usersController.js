@@ -12,7 +12,7 @@ module.exports = {
 				res.status(400).json(err);
 			});
 	},
-
+	//password hashing/bcrypt
 	findByEmail: function (req, res) {
 		db.User.findOne({ email: req.body.email })
 			.then((data) => {

@@ -41,10 +41,7 @@ const tile_canvas = {
 	],
 };
 
-/**
- * @prop appId uid
- * @prop transcode attendeeMode videoProfile channel baseMode
- */
+
 class AgoraCanvas extends React.Component {
 	constructor(props) {
 		super(props);
@@ -57,8 +54,8 @@ class AgoraCanvas extends React.Component {
 			displayMode: "pip",
 			streamList: [],
 			readyState: false,
-      
-			selectedStream: 0,
+			  selectedStream: 0,
+			  sharingScreen: false,
 			channel: window.location.href.split('/').pop()
 		};
 	}
@@ -76,7 +73,6 @@ class AgoraCanvas extends React.Component {
 				console.log("User " + uid + " join channel successfully");
 				console.log("At " + new Date().toLocaleTimeString());
 				// create local stream
-				// It is not recommended to setState in function addStream
 				this.localStream = this.streamInit(uid, $.attendeeMode, $.videoProfile);
 				this.localStream.init(
 					() => {
@@ -111,12 +107,6 @@ class AgoraCanvas extends React.Component {
 			}, 2000);
 		});
 	}
-
-	// componentWillUnmount () {
-	//     // remove listener
-	//     let canvas = document.querySelector('#ag-canvas')
-	//     canvas.removeEventListener('mousemove')
-	// }
 
 	componentDidUpdate() {
 		// rerendering
@@ -346,7 +336,6 @@ class AgoraCanvas extends React.Component {
 		} else if (this.state.displayMode === "tile") {
 			this.setState({ displayMode: "pip" });
 		} else if (this.state.displayMode === "share") {
-			// do nothing or alert, tbd
 		} else {
 			console.error("Display Mode can only be tile/pip/share");
 		}
@@ -398,37 +387,47 @@ class AgoraCanvas extends React.Component {
 		}
 	};
 	shareScreen = (e) => {
-		let $ = this.props;
-		// init AgoraRTC screenshare client
-		this.client = AgoraRTC.createClient({ mode: $.transcode });
-		this.client.init($.appId, () => {
-			console.log("AgoraRTC screenshareclient initialized");
-			this.subscribeStreamEvents();
-			this.client.join($.appId, $.channel, $.uid, (uid) => {
-				console.log("User " + uid + " join channel successfully");
-				console.log("At " + new Date().toLocaleTimeString());
-				// create local stream
-				// It is not recommended to setState in function addStream
-				this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
-				this.screenStream.init(
-					() => {
-						
+
+		if (this.state.sharingScreen === false) {
+
+			let $ = this.props;
+			// init AgoraRTC screenshare client
+			this.client = AgoraRTC.createClient({ mode: $.transcode });
+			this.client.init($.appId, () => {
+				console.log("AgoraRTC screenshareclient initialized");
+				this.subscribeStreamEvents();
+				this.client.join($.appId, $.channel, $.uid, (uid) => {
+					console.log("User " + uid + " join channel successfully");
+					console.log("At " + new Date().toLocaleTimeString());
+					// create local stream
+					this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
+					this.screenStream.init(
+						() => {
+							
 							this.addStream(this.screenStream, true);
+							this.setState({ sharingScreen: true });
 							this.client.publish(this.screenStream, (err) => {
 								console.log("Publish screen stream error: " + err);
 							});
-						
-						this.setState({ readyState: true });
-					},
-					(err) => {
-						console.log("getUserMedia failed", err);
-						this.setState({ readyState: true });
-					}
-				);
-			});
-		});
-	};
+							
+							this.setState({ readyState: true });
+						},
+						(err) => {
+							console.log("getUserMedia failed", err);
+							this.setState({ readyState: true });
+							
+						}
+						);
+					})
+				})
+			} else {
 
+				this.client.unpublish(this.screenStream)
+				this.setState({ sharingScreen: false });
+
+			}
+		} 
+			
 	render() {
 		const style = {
 			display: "grid",

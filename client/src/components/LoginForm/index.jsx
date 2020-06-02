@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
 				<div className='login-footer'>
 					<button
 						id='joinBtn'
-						onClick={this.handleFormSubmit}
+						onClick={this.props.handleFormSubmit}
 						type='submit'
 						className='ag-rounded button is-info'
 					>

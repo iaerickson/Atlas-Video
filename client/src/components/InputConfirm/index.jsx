@@ -15,15 +15,14 @@ class InputConfirm extends React.Component {
 			state: "",
 			errorMsg: "",
 		});
-		if (Validator.isNonEmpty(val.trim())) {
+		if (!Validator.isMatch(this.props.inputPassword, val)) {
 			this.setState({
-				errorMsg: "Cannot be empty!",
+				errorMsg: "Passwords do not match!",
 				state: "is-danger",
 			});
-			return false;
-		} else if (Validator.minLength(val.trim(), 1)) {
+		} else if (Validator.isNonEmpty(val.trim())) {
 			this.setState({
-				errorMsg: "No shorter than 1!",
+				errorMsg: "Cannot be empty!",
 				state: "is-danger",
 			});
 			return false;
@@ -65,7 +64,7 @@ class InputConfirm extends React.Component {
 			<div className='channel-wrapper control has-icons-left'>
 				<input
 					onInput={this.handleChange}
-					id='confirm=pass'
+					id='confirm-pass'
 					name='confirm'
 					className={"ag-rounded input " + this.state.state}
 					type='password'

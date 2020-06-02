@@ -11,4 +11,7 @@ export default {
 	isNonEmpty(value) {
 		return value === "" ? 1 : 0;
 	},
+	isMatch(password, confirm) {
+		return password === confirm ? 1 : 0;
+	},
 };

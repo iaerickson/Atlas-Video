@@ -2,7 +2,6 @@ import React from "react";
 import InputEmail from "../InputEmail";
 import InputPassword from "../InputPassword";
 import InputConfirm from "../InputConfirm";
-import "bulma/css/bulma.css";
 
 class SignUpForm extends React.Component {
 	render() {
@@ -18,12 +17,15 @@ class SignUpForm extends React.Component {
 				</div>
 				<div className='field'>
 					<label className='label'>Confirm Password</label>
-					<InputConfirm handleInput={this.props.handleInput} />
+					<InputConfirm
+						handleInput={this.props.handleInput}
+						inputPassword={this.props.inputPassword}
+					/>
 				</div>
 				<div className='login-footer'>
 					<button
 						id='joinBtn'
-						onClick={this.handleFormSubmit}
+						onClick={this.props.handleFormSubmit}
 						type='submit'
 						className='ag-rounded button is-info'
 					>

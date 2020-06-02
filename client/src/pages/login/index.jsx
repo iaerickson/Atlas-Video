@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/fonts/css/icons.css";
-
-import "bulma/css/bulma.css";
 import "./login.css";
 import LoginForm from "../../components/LoginForm";
 import API from "../../utils/API";
@@ -31,18 +29,19 @@ class Login extends React.Component {
 	handleFormSubmit = (event) => {
 		event.preventDefault();
 
-		if (this.state.passwordIsMatch === false) {
-			console.log("passwords do not match");
-			return false;
-		}
 		API.getUser(this.state)
 			.then((res) => {
-				if (res.data.status === "error") {
-					throw new Error(res.data.message);
-				}
+				// if (res.data.status === "error") {
+				// 	throw new Error(res.data.message);
+				// }
 				this.setState({ results: res.data.message, error: "" });
 			})
 			.catch((err) => this.setState({ error: err.message }));
+
+		// if (this.state.passwordIsMatch === false) {
+		// 	console.log("passwords do not match");
+		// 	return false;
+		// }
 	};
 	render() {
 		return (

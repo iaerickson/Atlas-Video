@@ -15,6 +15,7 @@ class Index extends React.Component {
 			transcode: "interop",
 			attendeeMode: "video",
 			videoProfile: "480p_4",
+			email: "",
 		};
 	}
 
@@ -84,7 +85,9 @@ class Index extends React.Component {
 					<section className='login-wrapper'>
 						<div className='login-header'>
 							{/* <img src={require('../../assets/images/ag-logo.png')} alt="" /> */}
-							<p className='login-title'>Welcome to Atlas</p>
+							<p className='login-title'>
+								Welcome to Atlas, {this.state.email}
+							</p>
 							<p className='login-subtitle'>
 								How Would You Like To Learn Today?
 							</p>

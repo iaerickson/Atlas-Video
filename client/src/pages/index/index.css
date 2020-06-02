@@ -74,26 +74,32 @@
 }
 .p-1 {
 	animation-duration: 10s;
+	padding: 0 !important;
 }
 .p-2 {
 	animation-duration: 5s;
 	top: 60%;
+	padding: 0 !important;
 }
 .p-3 {
 	animation-duration: 7s;
 	top: 88%;
+	padding: 0 !important;
 }
 .p-4 {
 	animation-duration: 20s;
 	top: 33%;
+	padding: 0 !important;
 }
 .p-5 {
 	animation-duration: 12s;
 	top: 75%;
+	padding: 0 !important;
 }
 .p-6 {
 	animation-duration: 15s;
 	top: 18%;
+	padding: 0 !important;
 }
 
 .login-header,

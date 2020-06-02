@@ -42,7 +42,7 @@ class Tutoring extends React.Component {
               onClick={this.copyToClipboard}
               className='coptBtn'
             >
-              Invite
+              Get Shareable Link
 							</a>
           </div>
 

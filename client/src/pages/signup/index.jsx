@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../../assets/fonts/css/icons.css";
 import "./signup.css";
 import SignUpForm from "../../components/SignUpForm";
@@ -13,6 +13,8 @@ class SignUp extends React.Component {
 			password: "",
 			confirm: "",
 			error: "",
+			joinBtn: false,
+			loggedIn: false,
 		};
 	}
 
@@ -36,11 +38,28 @@ class SignUp extends React.Component {
 				if (res.data.status === "error") {
 					throw new Error(res.data.message);
 				}
-				this.setState({ results: res.data.message, error: "" });
+				this.setState({
+					email: this.state.email,
+					password: this.state.password,
+					loggedIn: true,
+				});
 			})
 			.catch((err) => this.setState({ error: err.message }));
 	};
 	render() {
+		const loggedIn = this.state.loggedIn;
+		if (loggedIn === true) {
+			return (
+				<Redirect
+					to={{
+						pathname: "/channel",
+						state: {
+							email: this.state.email,
+						},
+					}}
+				/>
+			);
+		}
 		return (
 			<div className='wrapper index'>
 				<div className='ag-header'></div>
@@ -66,6 +85,7 @@ class SignUp extends React.Component {
 										handleInput={this.handleInput}
 										handleFormSubmit={this.handleFormSubmit}
 										inputPassword={this.state.password}
+										disabled={!this.state.joinBtn}
 									/>
 								</div>
 							</div>

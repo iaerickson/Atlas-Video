@@ -2,7 +2,6 @@ const router = require("express").Router();
 const auth = require("../../config/auth");
 const usersController = require("../../controllers/usersController");
 
-//Login
 router.route("/login").post((req, res) => {
 	auth
 		.logIn(req.body.email, req.body.password)

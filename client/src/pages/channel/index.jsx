@@ -41,7 +41,6 @@ class Channel extends React.Component {
 		if (!this.state.joinBtn) {
 			return;
 		}
-		console.log(this.state);
 		Cookies.set("channel", this.state.channel);
 		Cookies.set("baseMode", this.state.baseMode);
 		Cookies.set("transcode", this.state.transcode);
@@ -49,7 +48,6 @@ class Channel extends React.Component {
 		Cookies.set("videoProfile", this.state.videoProfile);
 		if (this.state.baseMode === "avc") {
 			window.location.hash = `classroom/${this.state.channel}`;
-			console.log(this.state);
 		} else {
 			window.location.hash = `tutoring/${this.state.channel}`;
 		}
@@ -60,8 +58,6 @@ class Channel extends React.Component {
 			Math.random().toString(15).substring(2, 15) +
 			Math.random().toString(36).substring(2, 15);
 		let channeInput = document.getElementById("channel");
-
-		console.log(newChannel);
 
 		this.setState({
 			channel: newChannel,
@@ -84,7 +80,6 @@ class Channel extends React.Component {
 				<div className='ag-main'>
 					<section className='login-wrapper'>
 						<div className='login-header'>
-							{/* <img src={require('../../assets/images/ag-logo.png')} alt="" /> */}
 							<p className='login-title'>
 								Welcome to Atlas, {this.state.email}
 							</p>

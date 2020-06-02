@@ -1,16 +1,3 @@
-/* 
-
-dark cyan #163347;
-light blue #00B6ED;
-green #7ED321;
-pink #E3B6FF;
-yellow #F8E71C;
-red #D0021B;
-dark blue #124A63;
-grey #637C8E
-
-*/
-
 html,
 body,
 #root,
@@ -27,7 +14,6 @@ img {
 
 .ag-header,
 .ag-footer {
-  /* flex-basis: 70px; */
   width: 100%;
   opacity: .8;
   height: 70px;

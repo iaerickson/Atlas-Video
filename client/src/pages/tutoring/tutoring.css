@@ -1,10 +1,14 @@
 .tutoring.wrapper {
-  background: red;
+  background: rgb(43, 44, 77);
   height: 100%;
 }
 
 video {
   max-width: unset;
+}
+
+#inviteBtn {
+  color: azure;
 }
 
 .tutoring .ag-header {

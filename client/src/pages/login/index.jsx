@@ -24,8 +24,7 @@ class Login extends React.Component {
 	handleInput = (val, name, state) => {
 		this.setState({
 			[name]: val,
-			joinBtn: state,
-			//console.log(name)
+			joinBtn: state
 		});
 	};
 
@@ -36,11 +35,6 @@ class Login extends React.Component {
 			})
 			.catch((err) => this.setState({ error: err.message }));
 		event.preventDefault();
-
-		// if (this.state.passwordIsMatch === false) {
-		// 	console.log("passwords do not match");
-		// 	return false;
-		// }
 	};
 	render() {
 		const loggedIn = this.state.loggedIn;
@@ -68,7 +62,6 @@ class Login extends React.Component {
 					<div className='p p-6'></div>
 					<section className='login-wrapper'>
 						<div className='login-header'>
-							{/* <img src={require('../../assets/images/ag-logo.png')} alt="" /> */}
 							<p className='login-title'>Log in to Atlas Video</p>
 							<p className='login-subtitle'>
 								How Would You Like To Learn Today?

@@ -24,14 +24,11 @@ class SignUp extends React.Component {
 	handleInput = (val, name, state) => {
 		this.setState({
 			[name]: val,
-			joinBtn: state,
-			//console.log(name)
+			joinBtn: state
 		});
 	};
 	handleFormSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state.password);
-		console.log(this.state.confirm);
 
 		API.createNewUser(this.state)
 			.then((res) => {
@@ -72,7 +69,6 @@ class SignUp extends React.Component {
 					<div className='p p-6'></div>
 					<section className='login-wrapper'>
 						<div className='login-header'>
-							{/* <img src={require('../../assets/images/ag-logo.png')} alt="" /> */}
 							<p className='login-title'>Sign up for Atlas Video</p>
 							<p className='login-subtitle'>
 								How Would You Like To Learn Today?

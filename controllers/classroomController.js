@@ -2,7 +2,6 @@ const db = require("../models");
 
 module.exports = {
 	create: function (req, res) {
-		console.log(req.body);
 		db.Classroom.create(req.body)
 			.then((data) => res.json(data))
 			.catch((err) => {
@@ -23,4 +22,3 @@ module.exports = {
 	},
 };
 
-//https://docs.agora.io/en/Video/API%20Reference/web/index.html for class functionality

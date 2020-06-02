@@ -119,13 +119,12 @@ class AgoraCanvas extends React.Component {
 	// }
 
 	componentDidUpdate() {
-		let sliced = this.client.channel.slice(0, 3);;
 		// rerendering
 		let canvas = document.querySelector("#ag-canvas");
 		// pip mode (can only use when less than 4 people in channel)
 		if (this.state.displayMode === "pip") {
 			let no = this.state.streamList.length;
-			if (no > 17 || sliced === "tut") {
+			if (no > 17 || window.location.href.split("/")[4] === "tutoring") {
 				this.setState({ displayMode: "tile" });
 				return;
 			}

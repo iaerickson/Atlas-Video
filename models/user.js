@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// Requiring bcrypt for password hashing.
 const bcrypt = require("bcrypt-nodejs");
 
 const UserSchema = new Schema({
@@ -28,18 +27,13 @@ const UserSchema = new Schema({
 		type: String,
 		trim: true,
 	},
-
-	// username: { type: String },
 });
 
-// Execute before each user.save() call
 UserSchema.pre("save", function (callback) {
 	let user = this;
 
-	// Break out if the password hasn't changed
 	if (!user.isModified("password")) return callback();
 
-	// Password hash
 	bcrypt.genSalt(5, function (err, salt) {
 		if (err) return callback(err);
 
@@ -57,12 +51,6 @@ UserSchema.methods.verifyPassword = function (password, cb) {
 		cb(null, isMatch);
 	});
 };
-
-// UserSchema.methods.setUsername = function () {
-// 	this.username = this.email.substring(0, this.email.lastIndexOf("@"));
-
-// 	return this.username;
-// };
 
 const User = mongoose.model("User", UserSchema);
 

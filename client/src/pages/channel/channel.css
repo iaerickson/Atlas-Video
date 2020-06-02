@@ -214,13 +214,11 @@
 #attendeeMode .radio {
 	display: flex;
 	align-items: center;
-	/* justify-content: space-around; */
 }
 
 #attendeeMode .radio-img {
 	width: 30px;
 	height: 30px;
-	/* vertical-align: middle; */
 }
 
 #attendeeMode .radio-img.video {

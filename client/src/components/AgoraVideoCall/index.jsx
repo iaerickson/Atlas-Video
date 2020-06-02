@@ -65,18 +65,11 @@ class AgoraCanvas extends React.Component {
 
 	componentWillMount() {
 		let $ = this.props;
-		console.log($)
-		// init AgoraRTC local client
 		this.client = AgoraRTC.createClient({ mode: $.transcode });
 		this.client.init($.appId, () => {
-			console.log("AgoraRTC client initialized");
 
 			this.subscribeStreamEvents();
 			this.client.join($.appId, window.location.href.split('/').pop(), $.uid, (uid) => {
-				console.log("User " + uid + " join channel successfully");
-				console.log("At " + new Date().toLocaleTimeString());
-				// create local stream
-				// It is not recommended to setState in function addStream
 				this.localStream = this.streamInit(uid, $.attendeeMode, $.videoProfile);
 				this.localStream.init(
 					() => {
@@ -98,7 +91,6 @@ class AgoraCanvas extends React.Component {
 	}
 
 	componentDidMount() {
-		// add listener to control btn group
 		let canvas = document.querySelector("#ag-canvas");
 		let btnGroup = document.querySelector(".ag-btn-group");
 		canvas.addEventListener("mousemove", () => {
@@ -112,16 +104,8 @@ class AgoraCanvas extends React.Component {
 		});
 	}
 
-	// componentWillUnmount () {
-	//     // remove listener
-	//     let canvas = document.querySelector('#ag-canvas')
-	//     canvas.removeEventListener('mousemove')
-	// }
-
 	componentDidUpdate() {
-		// rerendering
 		let canvas = document.querySelector("#ag-canvas");
-		// pip mode (can only use when less than 4 people in channel)
 		if (this.state.displayMode === "pip") {
 			let no = this.state.streamList.length;
 			if (no > 17 || window.location.href.split("/")[4] === "tutoring") {
@@ -145,7 +129,6 @@ class AgoraCanvas extends React.Component {
 
 				}
 				if (this.state.selectedStream === index) {
-					// (total # of rows, total # of columns, last two mess up the grid somehow need more research)
 					dom.setAttribute("style", `grid-area: span 12/span 12/13/12`);
 				} else if (index > 11 && index < 16) {
 					dom.setAttribute(
@@ -179,7 +162,6 @@ class AgoraCanvas extends React.Component {
 				item.player.resize && item.player.resize();
 			});
 		}
-		// tile mode
 		else if (this.state.displayMode === "tile") {
 			let no = this.state.streamList.length;
 			this.state.streamList.map((item, index) => {
@@ -196,7 +178,6 @@ class AgoraCanvas extends React.Component {
 				item.player.resize && item.player.resize();
 			});
 		}
-		// this is where we will render our screenshare stream
 		else if (this.state.displayMode === "share") {
 		}
 	}
@@ -251,35 +232,22 @@ class AgoraCanvas extends React.Component {
 		let rt = this;
 		rt.client.on("stream-added", function (evt) {
 			let stream = evt.stream;
-			console.log("New stream added: " + stream.getId());
-			console.log("At " + new Date().toLocaleTimeString());
-			console.log("Subscribe ", stream);
 			rt.client.subscribe(stream, function (err) {
 				console.log("Subscribe stream failed", err);
 			});
 		});
 
 		rt.client.on("peer-leave", function (evt) {
-			console.log("Peer has left: " + evt.uid);
-			console.log(new Date().toLocaleTimeString());
-			console.log(evt);
 			rt.removeStream(evt.uid);
 		});
 
 		rt.client.on("stream-subscribed", function (evt) {
 			let stream = evt.stream;
-			console.log("Got stream-subscribed event");
-			console.log(new Date().toLocaleTimeString());
-			console.log("Subscribe remote stream successfully: " + stream.getId());
-			console.log(evt);
 			rt.addStream(stream);
 		});
 
 		rt.client.on("stream-removed", function (evt) {
 			let stream = evt.stream;
-			console.log("Stream removed: " + stream.getId());
-			console.log(new Date().toLocaleTimeString());
-			console.log(evt);
 			rt.removeStream(stream.getId());
 		});
 	};
@@ -345,8 +313,6 @@ class AgoraCanvas extends React.Component {
 			this.setState({ displayMode: "tile" });
 		} else if (this.state.displayMode === "tile") {
 			this.setState({ displayMode: "pip" });
-		} else if (this.state.displayMode === "share") {
-			// do nothing or alert, tbd
 		} else {
 			console.error("Display Mode can only be tile/pip/share");
 		}
@@ -393,22 +359,15 @@ class AgoraCanvas extends React.Component {
 			this.setState({ readyState: false });
 			this.client = null;
 			this.localStream = null;
-			// redirect to index
 			window.location.hash = "";
 		}
 	};
 	shareScreen = (e) => {
 		let $ = this.props;
-		// init AgoraRTC screenshare client
 		this.client = AgoraRTC.createClient({ mode: $.transcode });
 		this.client.init($.appId, () => {
-			console.log("AgoraRTC screenshareclient initialized");
 			this.subscribeStreamEvents();
 			this.client.join($.appId, $.channel, $.uid, (uid) => {
-				console.log("User " + uid + " join channel successfully");
-				console.log("At " + new Date().toLocaleTimeString());
-				// create local stream
-				// It is not recommended to setState in function addStream
 				this.screenStream = this.streamInit(uid, "screenshare", $.videoProfile);
 				this.screenStream.init(
 					() => {

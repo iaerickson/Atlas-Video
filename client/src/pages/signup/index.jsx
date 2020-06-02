@@ -25,14 +25,11 @@ class SignUp extends React.Component {
 		this.setState({
 			[name]: val,
 			joinBtn: state,
-			//console.log(name)
 		});
 	};
 	handleFormSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state.password);
-		console.log(this.state.confirm);
-
+		
 		API.createNewUser(this.state)
 			.then((res) => {
 				if (res.data.status === "error") {

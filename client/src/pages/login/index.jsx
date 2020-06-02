@@ -25,7 +25,6 @@ class Login extends React.Component {
 		this.setState({
 			[name]: val,
 			joinBtn: state,
-			//console.log(name)
 		});
 	};
 

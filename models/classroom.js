@@ -14,8 +14,6 @@ const ClassroomSchema = new Schema({
 	],
 });
 
-//teacher and assistant specific methods
-
 const Classroom = mongoose.model("Classroom", ClassroomSchema);
 
 module.exports = Classroom;

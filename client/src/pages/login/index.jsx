@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../../assets/fonts/css/icons.css";
 import "./login.css";
 import LoginForm from "../../components/LoginForm";
@@ -13,6 +13,8 @@ class Login extends React.Component {
 			password: "",
 			passwordIsMatch: false,
 			error: "",
+			joinBtn: false,
+			loggedIn: false,
 		};
 	}
 
@@ -26,17 +28,14 @@ class Login extends React.Component {
 			//console.log(name)
 		});
 	};
-	handleFormSubmit = (event) => {
-		event.preventDefault();
 
-		API.getUser(this.state)
+	handleFormSubmit = (event) => {
+		API.logIn(this.state)
 			.then((res) => {
-				// if (res.data.status === "error") {
-				// 	throw new Error(res.data.message);
-				// }
-				this.setState({ results: res.data.message, error: "" });
+				this.setState({ email: res.data.email, loggedIn: true });
 			})
 			.catch((err) => this.setState({ error: err.message }));
+		event.preventDefault();
 
 		// if (this.state.passwordIsMatch === false) {
 		// 	console.log("passwords do not match");
@@ -44,6 +43,19 @@ class Login extends React.Component {
 		// }
 	};
 	render() {
+		const loggedIn = this.state.loggedIn;
+		if (loggedIn === true) {
+			return (
+				<Redirect
+					to={{
+						pathname: "/channel",
+						state: {
+							email: this.state.email,
+						},
+					}}
+				/>
+			);
+		}
 		return (
 			<div className='wrapper index'>
 				<div className='ag-header'></div>
@@ -68,6 +80,7 @@ class Login extends React.Component {
 									<LoginForm
 										handleInput={this.handleInput}
 										handleFormSubmit={this.handleFormSubmit}
+										disabled={!this.state.joinBtn}
 									/>
 								</div>
 							</div>

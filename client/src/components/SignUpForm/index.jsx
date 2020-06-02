@@ -26,6 +26,7 @@ class SignUpForm extends React.Component {
 					<button
 						id='joinBtn'
 						onClick={this.props.handleFormSubmit}
+						disabled={this.props.disabled}
 						type='submit'
 						className='ag-rounded button is-info'
 					>

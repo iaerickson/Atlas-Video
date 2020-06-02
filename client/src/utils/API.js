@@ -10,11 +10,11 @@ export default {
 		return axios.get(`/api/users`, userData);
 	},
 	// Logs in with User
-	logIn: function (req, res) {
-		return axios.post("/login", (req, res));
+	logIn: function (userData) {
+		return axios.post("/login", userData);
 	},
 	//Signs up Users
-	signUp: function (req, res) {
-		return axios.post("/signUp", (req, res));
+	signUp: function (userData) {
+		return axios.post("/signUp", userData);
 	},
 };

@@ -29,10 +29,7 @@ const UserSchema = new Schema({
 		trim: true,
 	},
 
-	//isHost: { type: Boolean },
-	//currentRoom:
-	//roomToken:
-	//VidChatToken
+	// username: { type: String },
 });
 
 // Execute before each user.save() call
@@ -42,7 +39,7 @@ UserSchema.pre("save", function (callback) {
 	// Break out if the password hasn't changed
 	if (!user.isModified("password")) return callback();
 
-	// Password changed so we need to hash it
+	// Password hash
 	bcrypt.genSalt(5, function (err, salt) {
 		if (err) return callback(err);
 
@@ -60,6 +57,12 @@ UserSchema.methods.verifyPassword = function (password, cb) {
 		cb(null, isMatch);
 	});
 };
+
+// UserSchema.methods.setUsername = function () {
+// 	this.username = this.email.substring(0, this.email.lastIndexOf("@"));
+
+// 	return this.username;
+// };
 
 const User = mongoose.model("User", UserSchema);
 

@@ -1,11 +1,11 @@
 import React from "react";
 import * as Cookies from "js-cookie";
 import InputChannel from "../../components/InputChannel";
+import "./channel.css";
 import "../../assets/fonts/css/icons.css";
 import { RESOLUTION_ARR } from "../../utils/Settings";
-import "./index.css";
 
-class Index extends React.Component {
+class Channel extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -368,4 +368,4 @@ class AdvancedOptions extends React.Component {
 	}
 }
 
-export default Index;
+export default Channel;

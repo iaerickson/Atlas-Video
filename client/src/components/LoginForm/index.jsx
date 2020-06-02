@@ -1,7 +1,6 @@
 import React from "react";
 import InputEmail from "../InputEmail";
 import InputPassword from "../InputPassword";
-import "bulma/css/bulma.css";
 
 class LoginForm extends React.Component {
 	render() {
@@ -19,6 +18,7 @@ class LoginForm extends React.Component {
 					<button
 						id='joinBtn'
 						onClick={this.props.handleFormSubmit}
+						disabled={this.props.disabled}
 						type='submit'
 						className='ag-rounded button is-info'
 					>

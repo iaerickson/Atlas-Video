@@ -20,43 +20,31 @@ class Classroom extends React.Component {
     this.uid = undefined;
   }
 
- 
-
-    //   const channelDiv = document.getElementById("room-name").textContent
-    //   const tempTextArea = document.createElement("temptext")
-
-    //   document.body.appendChild(tempTextArea)
-    //   tempTextArea.value= channelDiv
-    //   console.log(tempTextArea)
-    //   // tempTextArea.select()
-    //   // document.execCommand("Copy")
-    //   // tempTextArea.remove() 
-    //   // console.log(channelDiv)
-
-    //   alert("Channel Name Copied To Clipboard")
-  // }
-
-
+  copyToClipboard = str => {
+    const el = document.createElement('textarea');
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert("Room Link Copied To Clipboard")
+  };
 
   render() {
     return (
       <div className="wrapper meeting">
-        <div className="ag-header">
-          <div className="ag-header-lead">
+        <div className="ag-header justify-content-center">
+          <div className="btn btn-primary btn-lg">
 
-          </div>
-          <div className="ag-header-msg">
-            Room:&nbsp;<span id="room-name">{this.channel}
-
-            </span>
             <a
-              id='joinBtn'
-              onClick={this.copyChannelName}
+              id='inviteBtn'
+              onClick={this.copyToClipboard}
               className='coptBtn'
             >
-              Copy
+              Invite
 							</a>
           </div>
+
 
         </div>
         <div className="ag-main">

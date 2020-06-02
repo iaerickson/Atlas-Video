@@ -64,6 +64,7 @@ class AgoraCanvas extends React.Component {
 	}
 
 	componentWillMount() {
+		console.log(window.location.href.split('/')[4])
 		let $ = this.props;
 		console.log($)
 		// init AgoraRTC local client
@@ -125,7 +126,7 @@ class AgoraCanvas extends React.Component {
 		// pip mode (can only use when less than 4 people in channel)
 		if (this.state.displayMode === "pip") {
 			let no = this.state.streamList.length;
-			if (no > 17 || sliced === "tut") {
+			if (window.location.href.split('/')[4] === "tutoring") {
 				this.setState({ displayMode: "tile" });
 				return;
 			}

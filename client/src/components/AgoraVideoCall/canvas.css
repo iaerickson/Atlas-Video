@@ -8,7 +8,7 @@
 
 .ag-item {
   border-radius: 6px;
-  border: 2px #00B6ED solid;
+  border: 2px rgb(0, 0, 0) solid;
   background: url('../../assets/images/student.png') center no-repeat;
   height: 100%;
   width: 100%;
@@ -44,7 +44,7 @@
 
 .ag-btn-group:hover,
 .ag-btn-group.active {
-  background: rgba(18, 99, 79, 0.8);
+  background:rgb(128, 128, 128);
 }
 
 .ag-btn {
@@ -61,7 +61,7 @@
 }
 
 .ag-btn:hover {
-  color: rgb(237, 0, 0);
+  color: rgb(0, 237, 138);
 }
 
 .ag-btn.disabled,

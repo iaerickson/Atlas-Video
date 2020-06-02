@@ -20,6 +20,7 @@
 		"nodemon": "^1.18.7"
 	},
 	"dependencies": {
+		"@cometchat-pro/chat": "^2.0.8",
 		"axios": "^0.18.0",
 		"bcrypt-nodejs": "0.0.3",
 		"cors": "^2.8.5",

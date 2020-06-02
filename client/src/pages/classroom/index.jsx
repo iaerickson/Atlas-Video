@@ -5,6 +5,7 @@ import "./classroom.css";
 import AgoraVideoCall from "../../components/AgoraVideoCall";
 import { AGORA_APP_ID } from "../../agora.config";
 
+
 class Classroom extends React.Component {
 	constructor(props) {
 		super(props);
@@ -40,7 +41,7 @@ class Classroom extends React.Component {
 							onClick={this.copyToClipboard}
 							className='coptBtn'
 						>
-							Invite
+							Get Shareable Link
 						</a>
 					</div>
 				</div>
@@ -58,10 +59,6 @@ class Classroom extends React.Component {
 					</div>
 				</div>
 				<div className='ag-footer'>
-					{/* <a className="ag-href" href="https://www.agora.io">
-            {/* <span>Powered By Agora</span> */}
-					{/* </a> */}
-					{/* <span>Talk to Support: 400 632 6626</span> */}
 				</div>
 			</div>
 		);

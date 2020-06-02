@@ -20,22 +20,33 @@ class Tutoring extends React.Component {
     this.uid = undefined;
   }
 
+  copyToClipboard = str => {
+    const el = document.createElement('textarea');
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert("Room Link Copied To Clipboard")
+  };
+
   render() {
     var tutChannel = "tut" + this.channel;
     return (
       <div className="wrapper tutoring">
-        <div className="ag-header">
-          <div className="ag-header-lead">
-            {/* <img
-              className="header-logo"
-              src={require("../../assets/images/ag-logo.png")}
-              alt=""
-            /> */}
-            {/* <span>AgoraWeb v2.1</span> */}
+        <div className="ag-header justify-content-center">
+          <div className="btn btn-primary btn-lg">
+
+            <a
+              id='inviteBtn'
+              onClick={this.copyToClipboard}
+              className='coptBtn'
+            >
+              Invite
+							</a>
           </div>
-          <div className="ag-header-msg">
-            Room:&nbsp;<span id="room-name">{this.channel}</span>
-          </div>
+
+
         </div>
         <div className="ag-main">
           <div className="ag-container">

@@ -86,5 +86,4 @@ class InputChannel extends React.Component {
 		);
 	}
 }
-
 export default InputChannel;

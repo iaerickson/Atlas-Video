@@ -21,7 +21,7 @@
 	},
 	"dependencies": {
 		"@cometchat-pro/chat": "^2.0.8",
-		"axios": "^0.18.0",
+		"axios": "^0.21.1",
 		"bcrypt-nodejs": "0.0.3",
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
